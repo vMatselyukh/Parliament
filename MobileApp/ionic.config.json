@@ -1,0 +1,16 @@
+{
+  "name": "Parliament",
+  "app_id": "81cc2b99",
+  "gulpStartupTasks": [
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ],
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

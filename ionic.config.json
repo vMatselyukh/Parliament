@@ -1,0 +1,14 @@
+{
+  "name": "Parliament",
+  "app_id": "724de537",
+  "v2": true,
+  "typescript": true,
+  "gulpStartupTasks": [
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ]
+}

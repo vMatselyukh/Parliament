@@ -1,0 +1,118 @@
+﻿@model WebApi.Dtos.PersonDto
+
+@{
+    ViewBag.Title = Model.GenericName;
+}
+
+<h2>@Model.GenericName</h2>
+
+    <div class="columns-container">
+
+        @using (Html.BeginForm("Politician", "Parliament", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(x => x.Id)
+            <div class="left-column">
+                <div class="form-field">
+                    @Html.LabelFor(x=>x.GenericName)
+                    @Html.TextBoxFor(x=>x.GenericName, Model != null && Model.Id == 0 ? (object)new { required = "true" } : new { required = "true", @readonly="true" })
+                    @Html.ValidationMessageFor(x=>x.GenericName)
+                </div>
+
+                <div class="form-field">
+                    @Html.LabelFor(x => x.GenericPost)
+                    @Html.TextBoxFor(x => x.GenericPost, Model != null && Model.Id == 0 ? (object)new { required = "true" } : new { required = "true", @readonly = "true" })
+                    @Html.ValidationMessageFor(x => x.GenericPost)
+                </div>
+
+                <div class="form-field">
+                    @Html.LabelFor(x => x.UkranianName)
+                    @Html.TextBoxFor(x => x.UkranianName, new { required="true" })
+                    @Html.ValidationMessageFor(x => x.UkranianName)
+                </div>
+
+                <div class="form-field">
+                    @Html.LabelFor(x => x.UkranianPost)
+                    @Html.TextBoxFor(x => x.UkranianPost, new { required = "true" })
+                    @Html.ValidationMessageFor(x => x.UkranianPost)
+                </div>
+
+                <div class="form-field">
+                    @Html.LabelFor(x => x.RussianName)
+                    @Html.TextBoxFor(x => x.RussianName, new { required = "true" })
+                    @Html.ValidationMessageFor(x => x.RussianName)
+                </div>
+
+                <div class="form-field">
+                    @Html.LabelFor(x => x.RussianPost)
+                    @Html.TextBoxFor(x => x.RussianPost, new { required = "true" })
+                    @Html.ValidationMessageFor(x => x.RussianPost)
+                </div>
+            
+                <!--                                                                    images go here       -->
+                <div class="form-field">
+                    <div class="input-file-holder">
+                        @Html.LabelFor(x=>x.MainPicPath)
+                        <input type="file" id="MainPic" name="MainPic" />
+                    </div>
+                    <div>
+                        <img src="@Model.MainPicPath.ImagePath" />
+                        <span>Dimensions: @Model.MainPicPath.Dimensions.Width X @Model.MainPicPath.Dimensions.Height</span>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <div class="input-file-holder">
+                        @Html.LabelFor(x => x.ListButtonPicPath)
+                        <input type="file" id="ListButtonPic" name="ListButtonPic" />
+                    </div>
+                    <div>
+                        <img src="@Model.ListButtonPicPath.ImagePath" />
+                        <span>Dimensions: @Model.ListButtonPicPath.Dimensions.Width X @Model.ListButtonPicPath.Dimensions.Height</span>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <div class="input-file-holder">
+                        @Html.LabelFor(x => x.SmallButtonPicPath)
+                        <input type="file" id="SmallButtonPic" name="SmallButtonPic" />
+                    </div>
+                    <div>
+                        <img src="@Model.SmallButtonPicPath.ImagePath" />
+                        <span>Dimensions: @Model.SmallButtonPicPath.Dimensions.Width X @Model.SmallButtonPicPath.Dimensions.Height</span>
+                    </div>
+                </div>
+                
+                <input type="submit" value="Save" />
+            </div>
+        }     
+        
+        <div class="right-column">
+            @*--------------------------------------------------------------list of tracks here---------------------------------------------------------*@
+
+            @if (Model != null && Model.Id != 0)
+            {
+                <a href="/admin/parliament/politician/@Model.Id/track">Add track</a>
+            }
+
+            @foreach (var item in Model.Tracks)
+            {
+
+                using (Html.BeginForm("deletetrack", "parliament", FormMethod.Post, new { onsubmit = "return confirm('Are you sure?')" }))
+                {
+                    <div>
+                        <input type="hidden" name="trackId" value="@item.Id" />
+                        <input type="hidden" name="politicianId" value="@Model.Id" />
+                        <input type="submit" value="del" id="DeleteTrack">
+                        &nbsp;
+                        <a href="/admin/parliament/politician/@Model.Id/track/@item.Id">@item.Name</a>
+                    </div>
+                }
+
+
+            }
+        </div>
+    </div>
+
+    <div class="clearfix"></div>    
+
+

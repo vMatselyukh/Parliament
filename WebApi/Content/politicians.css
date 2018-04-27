@@ -1,0 +1,53 @@
+﻿ div.form-field label{
+     width: 150px;
+ }
+
+ div.columns-container .left-column {
+     float: left;
+     width: 400px;
+ }
+
+ div.columns-container .right-column {
+     float: left;
+     width: 400px;
+ }
+
+.translation-key {
+    width:250px;
+    overflow-x:hidden;
+    text-overflow:ellipsis;
+    float:left;
+}
+
+.translation-value {
+    min-width: 400px;
+    max-width: 400px;
+    float:right;
+}
+
+.translation-value-not-removable {
+    color:green;
+}
+
+.translation-key-not-removable {
+    color:green;
+}
+
+.translations-list {
+    border-bottom: 1px solid gray;
+}
+
+.translations-delete-button {
+    float:left;
+    margin-right:10px;
+}
+
+.form-field img{
+    width:200px;
+    height:100%;
+}
+
+.input-file-holder {
+    width: 200px;
+    float:left;
+}

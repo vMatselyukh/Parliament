@@ -1,0 +1,33 @@
+﻿@model WebApi.Dtos.TranslationDto
+@{
+    ViewBag.Title = "Wording";
+}
+
+<h2>Wording @Model.Key</h2>
+
+@Html.RouteLink("translations", new { action = "Index" }, new { @class="button"})
+
+@using (Html.BeginForm())
+{
+    <input type="hidden" name="OldKey" value="@Model.Key" />
+    <input type = "hidden" name="AddNew" value = "@ViewBag.AddNew" />
+
+    <input type="text" @(Model.IsRemovable ? "" : "readonly") name="translationDto.key" value="@Model.Key"/>
+
+    int index = 0;
+
+    foreach (var translation in Model.Translations)
+    {
+
+        <label>@translation.Key</label>
+        <input type="hidden" name="TranslationDto.Translations[@index].Key" value="@translation.Key"/>
+        <textarea name="TranslationDto.Translations[@index].Value" rows="5">@translation.Value</textarea>
+        
+        index = index + 1;
+        
+        @*<input type="hidden" name="TranslationDto.Translations.Index" value="@Model.Translations.IndexOf(translation)" />*@
+    }
+
+    <input type="submit" value="Edit"/>
+}
+

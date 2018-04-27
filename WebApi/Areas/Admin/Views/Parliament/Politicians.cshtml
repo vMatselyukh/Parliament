@@ -1,0 +1,27 @@
+﻿@model WebApi.Models.Config
+
+@{
+    ViewBag.Title = "Politicians";
+}
+
+<h2>Politicians</h2>
+
+@Html.RouteLink("Add new politician", new { action = "politician" }, new { @class = "button" })
+
+@foreach (var item in Model.Persons)
+{
+    <div>
+        @using (Html.BeginForm("deletepolitician", "parliament", FormMethod.Post, new { onsubmit="return confirm('Are you sure?')"}))
+        {
+            <input type="hidden" name="Id" value="@item.Id"/>
+            <input type="submit" value="del" id="DeletePolitician">
+            WriteLiteral("&nbsp");
+            @Html.RouteLink(@item.Name, new { area = "admin", action = "politician", id = @item.Id })
+        }
+    </div>
+}
+
+<script>
+    $(function () {
+    });
+</script>

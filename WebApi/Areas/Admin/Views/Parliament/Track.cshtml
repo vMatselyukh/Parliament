@@ -1,0 +1,59 @@
+﻿@model WebApi.Dtos.TrackDto
+
+@{
+    ViewBag.Title = "Track";
+}
+
+<h2>@Model.Name</h2>
+
+@Html.RouteLink($"Back to {Model.PoliticianName}", new { action = "politician", id = Model.PoliticianId }, new { @class = "button" })
+
+@using (Html.BeginForm("track", "parliament", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.PoliticianId)
+
+    <div class="columns-container">
+        <div class="left-column">
+            <div class="form-field">
+                @Html.LabelFor(x => x.Name)
+                @Html.TextAreaFor(x => x.Name, new { rows = 5, required = "true" })                
+                @Html.ValidationMessageFor(x => x.Name)
+            </div>
+
+            <div class="form-field">
+                @Html.LabelFor(x => x.Date)
+                <input type="date" required="required" value='@(Model.Date.HasValue ? Model.Date.Value.ToString("yyyy-MM-dd") : "")' name="Date" />
+                @Html.ValidationMessageFor(x => x.Date)
+            </div>
+
+            <div class="form-field">
+                <div class="input-file-holder">
+                    @Html.LabelFor(x => x.AudioFilePath)
+                    <input type="file" id="AudioFile" name="AudioFile" />
+                </div>
+                <div>
+                    <audio controls id="audioPlayer">
+                        <source src="@Model.AudioFilePath" type="audio/ogg">
+                        <source src="@Model.AudioFilePath" type="audio/mpeg">
+                        <source src="@Model.AudioFilePath" type="audio/wav">
+                        Audio can't be played.
+                    </audio>                    
+                </div>
+
+            </div>
+
+            <input type="submit" value="Save" />
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+}
+
+<script>
+    $(function(){     
+        var vid = document.createElement('audioPlayer');
+        isSupp = vid.canPlayType('audio/ogg;codecs="vorbis"');
+        alert(isSupp);
+    });
+</script>

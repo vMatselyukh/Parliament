@@ -1,0 +1,35 @@
+﻿@model List<WebApi.Dtos.TranslationDto>
+
+@{
+    ViewBag.Title = $"Translations {ViewBag.Language}";
+}
+
+<h2>@ViewBag.Language Translations</h2>
+
+@Html.RouteLink("Add new translation", new { action="Wording" }, new { @class="button"})
+
+@foreach (var item in Model)
+{
+    using (Html.BeginForm("DeleteTranslation", "translations", FormMethod.Post, new { onsubmit = "return confirm('Are you sure?')" }))
+    {
+        <input type="hidden" name="key" value="@item.Key" />
+
+        <div class="translations-list">
+            @if (item.IsRemovable)
+            {
+                <input type="submit" class="translations-delete-button" value="del" id="Delete">
+            }
+
+            <a href="@(Url.RouteUrl(new { action = "Wording", key = @item.Key }))">
+                <div class="translation-key @(item.IsRemovable ? "" : "translation-key-not-removable")">@item.Key</div>
+                @foreach (var translation in item.Translations.OrderByDescending(t=>t.Key))
+                {
+                    <div class='translation-value @(item.IsRemovable ? "" : "translation-value-not-removable")'>@translation.Value</div>
+                }
+            </a>
+            <div class="clearfix"></div>
+        </div>
+    }
+}
+
+

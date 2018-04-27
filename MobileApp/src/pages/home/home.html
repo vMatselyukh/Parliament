@@ -1,0 +1,42 @@
+﻿<ion-header>
+  <ion-navbar>
+      <ion-buttons end>
+          <button (click)="goToMenu()" ion-button icon-only small color="dark">
+              <ion-icon name="settings"></ion-icon>
+          </button>
+      </ion-buttons>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content id="HomePageContent">
+    <img id="MainImage" />
+
+    <div id="ThreeButtonsDiv">
+        <ion-segment color="primary">
+            <ion-segment-button value="main" #MainListSegmentButton>
+                Main
+                <ion-icon name="md-list-box"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="recent">
+                <span>Recent</span>
+                <ion-icon name="md-eye"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="new" icon>
+                New
+                <ion-icon name="md-download"></ion-icon>
+            </ion-segment-button>
+        </ion-segment>
+    </div>
+
+    <div id="MainList">
+        <ion-scroll scrollX="true" scrollY="false" class="scroll-area">
+            <div class="item" *ngFor="let person of config?.Persons" (tap)="itemClick(person)">
+                <img class="size-helper" src="assets/images/politicians/klichko/klichko.png" width="129" height="183" />
+            </div>
+        </ion-scroll>
+    </div>
+
+    <div style="clear:both;"></div>
+
+</ion-content>

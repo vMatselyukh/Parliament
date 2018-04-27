@@ -1,0 +1,19 @@
+﻿<ion-header>
+    <ion-navbar>
+        <ion-title>Menu</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <h1>Menu here</h1>
+    <button ion-button block>
+        Sync&nbsp;
+        <ion-badge *ngIf="itemsToDownloadCount" color="danger">{{itemsToDownloadCount}}</ion-badge>
+    </button>
+    <button ion-button block (click)="checkDir()">
+        Check dir
+    </button>
+    <button ion-button block (click)="createDir()">
+        Create dir
+    </button>
+</ion-content>
